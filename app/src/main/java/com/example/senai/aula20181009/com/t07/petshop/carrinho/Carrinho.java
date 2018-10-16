@@ -14,8 +14,12 @@ public class Carrinho {
     public static final int PAGO = 2;
     private ArrayList<IProduto> aProdutos;
     private int status;
-
-    public Carrinho() {
+    public static final Carrinho instancia =
+            new Carrinho();
+    public static Carrinho getInstancia(){
+        return instancia;
+    }
+    private Carrinho() {
         this.aProdutos = new ArrayList<>();
         this.status = ABERTO;
     }
@@ -36,7 +40,9 @@ public class Carrinho {
                 this.aProdutos.lastIndexOf(p));
     }
     public ArrayList<IProduto> getaProdutos(){
+
         return this.aProdutos;
+
     }
     public float getValorTotal(){
         float valorTotal = 0;
