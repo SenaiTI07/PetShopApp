@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.senai.aula20181009.com.t07.petshop.BancoMock;
@@ -44,33 +46,18 @@ public class MainActivity
             final int qtd = (Integer)produtoQtd.
                     getValue();
             //layout
-            LinearLayout itemLayout =
-                    new LinearLayout(this);
-            TextView titulo = new TextView(this);
+            LayoutInflater inflater =
+                    LayoutInflater.from(this);
+            RelativeLayout itemLayout =
+                    (RelativeLayout)inflater.inflate(
+                            R.layout.layout_item,
+                            null,false);
+            TextView titulo =(TextView)
+                    itemLayout.findViewById(R.id.tvNome);
             titulo.setText(p.getNome());
-            Log.d("MainActivity", p.getNome());
-            TextView textQtd = new TextView(this);
-            Log.d("MainActivity", String.valueOf(qtd));
-            textQtd.setText(String.valueOf(qtd));
-            itemLayout.addView(titulo);
-            itemLayout.addView(textQtd);
-            Button bt = new Button(this);
-            bt.setText("Adicionar ao carrinho");
-            bt.setOnClickListener(
-                    new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(Estoque.getInstance().
-                            verificaQuantidadeProduto(p) >= 1){
-                        if (Carrinho.getInstancia().
-                                inserirProduto(p)) {
-                            Estoque.getInstance().
-                                    retirarProduto(p, 1);
-                        }
-                    }
-                }
-            });
-            itemLayout.addView(bt);
+            TextView preco = (TextView)
+                    itemLayout.findViewById(R.id.tvPreco);
+            preco.setText(String.valueOf(p.getPreco()));
             layout.addView(itemLayout);
             it.remove();
         }
