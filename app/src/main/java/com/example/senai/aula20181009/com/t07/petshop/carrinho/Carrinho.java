@@ -1,5 +1,6 @@
 package com.example.senai.aula20181009.com.t07.petshop.carrinho;
 
+import com.example.senai.aula20181009.com.t07.petshop.produto.Estoque;
 import com.example.senai.aula20181009.com.t07.petshop.produto.IProduto;
 
 import java.util.ArrayList;
@@ -24,8 +25,10 @@ public class Carrinho {
         this.status = ABERTO;
     }
     public boolean inserirProduto(IProduto p){
-        if(this.status == ABERTO){
-            return this.aProdutos.add(p);
+        if(this.status == ABERTO &&
+                Estoque.getInstance().
+                        retirarProduto(p,1)){
+                return this.aProdutos.add(p);
         }
         return false;
     }
@@ -40,9 +43,7 @@ public class Carrinho {
                 this.aProdutos.lastIndexOf(p));
     }
     public ArrayList<IProduto> getaProdutos(){
-
         return this.aProdutos;
-
     }
     public float getValorTotal(){
         float valorTotal = 0;

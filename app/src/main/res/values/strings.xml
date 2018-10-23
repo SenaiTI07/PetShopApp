@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Aula20181009</string>
+    <string name="addCarrinho">Produto adicionado com sucesso!</string>
+    <string name="addCarrinhoError">Não foi possível adicionar o produto no carrinho!</string>
 </resources>

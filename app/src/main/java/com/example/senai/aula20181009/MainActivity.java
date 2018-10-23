@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.senai.aula20181009.com.t07.petshop.BancoMock;
 import com.example.senai.aula20181009.com.t07.petshop.carrinho.Carrinho;
@@ -34,7 +36,8 @@ public class MainActivity
         LinearLayout layout =
                 findViewById(R.id.layout_produtos);
         HashMap<IProduto, Integer> lista =
-                Estoque.getInstance().getProdutos();
+                Estoque.getInstance().
+                        getProdutos();
         Iterator it = lista.entrySet().iterator();
 
         Log.d("MainActivity", "iterator " + it.toString());
@@ -58,8 +61,9 @@ public class MainActivity
             TextView preco = (TextView)
                     itemLayout.findViewById(R.id.tvPreco);
             preco.setText(String.valueOf(p.getPreco()));
+            itemLayout.setTag(p);
             layout.addView(itemLayout);
-            it.remove();
+            //it.remove();
         }
     }
 
@@ -67,5 +71,24 @@ public class MainActivity
         Intent i = new Intent
                 (this, CarrinhoActivity.class);
         startActivity(i);
+    }
+    public void clicouAdd(View view){
+        View parent = (View)view.getParent();
+        IProduto produto =
+                (IProduto)parent.getTag();
+        if(Carrinho.getInstancia().
+                inserirProduto(produto)){
+            Toast.makeText(this,
+                    R.string.addCarrinho,
+                    Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this,
+                    R.string.addCarrinhoError,
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void clicouInfo(View view){
+
     }
 }

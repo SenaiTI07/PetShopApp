@@ -51,6 +51,7 @@ public class AbstractEstoque
             int i = this.hEstoque.get(p);
             i -= qtd;
             this.hEstoque.put(p,i);
+            return true;
         }
         return false;
     }
